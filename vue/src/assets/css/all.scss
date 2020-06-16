@@ -1,0 +1,30 @@
+$color:#3B79FF;
+$bg:#3B79FF;
+$no-color:#B0B0B0;
+$border:#EDEDED;
+$no-bg:#EEF3FF;
+$fff:#fff;
+$div:#333;
+$show:rgba(214,222,230,1);
+div,span,a{ 
+    box-sizing: border-box;
+    color: $div;
+}
+img,a{
+    display: block;
+}
+
+.my-but{
+    position: fixed;
+    width: 3.4rem;
+    line-height: .42rem;
+    text-align: center;
+    background: $bg;
+    color: $fff;
+    bottom: 3%;
+    left: 50%;
+    border-radius:2px;
+    font-size: .14rem;
+    margin-left: -1.7rem;
+
+}
