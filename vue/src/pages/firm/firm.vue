@@ -44,6 +44,9 @@ export default {
             console.log(e)
             this.swipeIndex=e
         }
+    },
+    created(){
+        console.log(this.$route.params)
     }
 }
 </script>

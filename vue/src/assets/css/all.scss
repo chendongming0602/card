@@ -6,14 +6,19 @@ $no-bg:#EEF3FF;
 $fff:#fff;
 $div:#333;
 $show:rgba(214,222,230,1);
+$text:#606060;
 div,span,a{ 
     box-sizing: border-box;
     color: $div;
+    font-size: .14rem;
 }
 img,a{
     display: block;
 }
-
+body{
+    margin: 0;
+    padding: 0;
+}
 .my-but{
     position: fixed;
     width: 3.4rem;

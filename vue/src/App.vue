@@ -1,7 +1,10 @@
 <template>
  <div class="app-container">
      <!-- <e-xam01></e-xam01> -->
-    <router-view></router-view>
+      <keep-alive >
+         <router-view v-if="$route.meta.keep"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keep"></router-view>
  </div>
 </template>
 <style>

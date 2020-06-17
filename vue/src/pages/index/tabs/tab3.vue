@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="tab3-list" v-for="(t,i) in 3" :key="i">
-            <img class="tab3-video" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
+             <video class="tab3-video">
+                <source src="@/assets/imgs/mp4.mp4" type="video/mp4">
+            </video>
             <div>爱上的看法</div>
         </div>
     </div>

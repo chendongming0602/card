@@ -25,20 +25,27 @@
                 </div>
             </div>
             <div class="index-but">
-                <div>公司介绍</div>
-                <div>分享名片</div>
+                <router-link :to="{name:'firm',params:{id:1}}"><div>公司介绍</div></router-link>
+                <router-link :to="{name:'my',params:{id:1}}"><div class="index-share">分享名片</div></router-link>
             </div>
         </div>
         <!-- 公司介绍 -->
         <div class="index-gs">
-            <div class="index-gs-title">
-                <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="logo">
-                <div>大佛地方</div>
-                <img src="https://minis-resources-1252149780.cos.ap-guangzhou.myqcloud.com/card/index/right.png" alt="right">
-            </div>
+            <router-link :to="{name:'firm',params:{id:1}}">
+                <div class="index-gs-title">
+                    <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="logo">
+                    <div>大佛地方</div>
+                    <img src="https://minis-resources-1252149780.cos.ap-guangzhou.myqcloud.com/card/index/right.png" alt="right">
+                </div>
+            </router-link>
             <div class="index-scroll-box">
-                <div class="index-scroll">
-                    <img v-for="(t,i) in 5" :key="i" class="index-scroll-item" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="img">
+                <div class="index-scroll" @scroll.passive="getScroll($event)">
+                   <div  v-for="(t,i) in 3" :key="i" class="index-scroll-item">
+                        <img  src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="img" @click="lookEvent">
+                        <video v-if="false">
+                            <source src="../../assets/imgs/mp4.mp4" type="video/mp4">
+                        </video>
+                   </div>
                 </div>
             </div>
             <div class="index-gs-in">阿萨德佛那都放假哦阿萨德积分</div>
@@ -51,17 +58,18 @@
 
         <!-- tabs -->
         <div class="index-tabs " ref="head">
-            <div v-for="(t,i) in tabs" :key="i" :class="tabIndex===i?'index-t-active':''" @click="tabIndex=i">
+            <div v-for="(t,i) in tabs" :key="i" :class="tabIndex===i?'index-t-active':''" @click="tabsEvent(i)">
                 {{t}}
                 <div></div>
             </div>
         </div>
         <div>
-           <Tab1 name="行业" v-if="tabIndex===0"></Tab1>
-           <Tab2 name="产品" v-if="tabIndex===1"></Tab2>
-           <Tab3 name="视频" v-if="tabIndex===2"></Tab3>
-           <Tab4 name="二维码" v-if="tabIndex===3"></Tab4>
-           <Tab5 name="加入我们" v-if="tabIndex===4"></Tab5>
+            <!-- 只加载一次组件 -->
+            <div v-show="tabIndex===0"><Tab1 name="行业" v-if="tabShow[0]"></Tab1></div>
+            <div v-show="tabIndex===1"><Tab2 name="产品" v-if="tabShow[1]"></Tab2></div>
+            <div v-show="tabIndex===2"><Tab3 name="视频" v-if="tabShow[2]"></Tab3></div>
+            <div v-show="tabIndex===3"><Tab4 name="二维码" v-if="tabShow[3]"></Tab4></div>
+            <div v-show="tabIndex===4"><Tab5 name="加入我们" v-if="tabShow[4]"></Tab5></div>
         </div>
     </div>
 </template>
@@ -71,6 +79,7 @@ import Tab2 from "./tabs/tab2";
 import Tab3 from "./tabs/tab3";
 import Tab4 from "./tabs/tab4";
 import Tab5 from "./tabs/tab5";
+import { ImagePreview } from 'vant';
 export default {
     data(){
         return{
@@ -81,8 +90,42 @@ export default {
                 "直播",
                 "加入我们",
             ],
-            tabIndex:0
+            tabIndex:0,
+            tabShow:[
+                false,
+                false,
+                false,
+                false,
+                false,
+            ]
         }
+    },
+    methods:{
+        tabsEvent(e){
+            this.tabIndex=e;
+            this.tabShow[e]=true;
+        },
+        //横向滚动距离
+        getScroll(e){
+            // console.log(e.target.scrollLeft)
+        },
+        //预览
+        lookEvent(e){
+            ImagePreview({
+                images: [
+                    'https://img.yzcdn.cn/vant/apple-1.jpg',
+                    'https://img.yzcdn.cn/vant/apple-2.jpg',
+                ],
+                startPosition: 1,
+                onClose() {
+                    // do something
+                },
+            });
+        }
+    },
+    created(){
+        console.log("我是首页")
+        this.tabShow[this.tabIndex]=true;
     },
     mounted(){
         //  var header = this.$refs.head;
@@ -186,7 +229,7 @@ export default {
                 text-align: center;
                 border-radius:2px;
             }
-            div:nth-child(2){
+            .index-share{
                 color: $fff;
                 background: $bg;
             }
@@ -205,6 +248,7 @@ export default {
                 width: .53rem;
                 height: .53rem;
                 margin-right: 8px;
+                object-fit: cover;
             }
             img:nth-child(3){
                 min-width: .18rem;
@@ -234,6 +278,11 @@ export default {
                     margin-left: .1rem;
                     border: 1px solid #f00;
                     border-radius: 3px;
+                    img,video{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
                 }
                 .index-scroll-item:nth-child(1){
                     margin-left: 0;

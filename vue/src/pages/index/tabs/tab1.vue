@@ -1,22 +1,49 @@
 <template>
-    <div>
-        <div class="tab1-list" v-for="(t,i) in 5" :key="i">
-            <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
-            <div>
-                <div>士大夫撒旦法撒旦</div>
-                <div>水电费拉的</div>
-            </div>
+    <div class="tab1-boxs">
+        <div class="scroll" ref="scroll">
+            <router-link :to="{name:'press'}">
+                <div class="tab1-list" v-for="(t,i) in list" :key="i">
+                    <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
+                    <div>
+                        <div>士大夫撒旦法撒旦</div>
+                        <div>水电费拉的</div>
+                    </div>
+                </div>
+            </router-link>
         </div>
+        <Scroll></Scroll>
     </div>
 </template>
 <script>
+import Scroll from "@/components/scroll/scroll.vue"
 export default {
     data(){
-        return{}
+        return{
+            list:[],
+        }
+    },
+    methods:{
+       handleScroll(){
+           console.log(this.$refs.scroll.getBoundingClientRect())
+       console.log( window.innerHeight - this.$refs.scroll.getBoundingClientRect().y -this.$refs.scroll.getBoundingClientRect().height)
+       }
+    },
+    created(){
+        this.list.length=10
+    },
+    mounted(){
+        window.addEventListener('scroll', this.handleScroll) //最后的参数为事件名称
+    },
+    components:{
+        Scroll
     }
+    
 }
 </script>
 <style lang="scss" scoped>
+    .tab1-boxs{
+        position: relative;
+    }
     .tab1-list{
         display: flex;
         justify-content: space-between;
@@ -29,6 +56,7 @@ export default {
             border-radius: 2px;
             margin-right: 10px;
             border: 1px solid #f00;
+            object-fit: cover;
         }
         >div{
             flex-grow: 1;

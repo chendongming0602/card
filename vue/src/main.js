@@ -18,6 +18,7 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 //复制文本插件
 import VueClipboard from 'vue-clipboard2';
+
 Vue.use(VueClipboard)
 
 Vue.use(Vant);

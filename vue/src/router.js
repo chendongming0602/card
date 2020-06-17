@@ -33,7 +33,9 @@ const router=new Router({
             name:"index",
             component:() => import('@/pages/index/index.vue'),
             meta:{
-              title:"首页"
+              title:"首页",
+              //是否缓存
+              keep:true
             }
           },
           {
@@ -50,6 +52,30 @@ const router=new Router({
             component:() => import('@/pages/firm/firm.vue'),
             meta:{
               title:"公司介绍"
+            }
+          },
+          {
+            path:'/buy',
+            name:"buy",
+            component:() => import('@/pages/details/buy.vue'),
+            meta:{
+              title:"商品"
+            }
+          },
+          {
+            path:'/order',
+            name:"order",
+            component:() => import('@/pages/details/order.vue'),
+            meta:{
+              title:"详情页"
+            }
+          },
+          {
+            path:'/press',
+            name:"press",
+            component:() => import('@/pages/press/press.vue'),
+            meta:{
+              title:"行业新闻"
             }
           },
       ]

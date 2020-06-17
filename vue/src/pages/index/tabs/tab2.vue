@@ -1,15 +1,17 @@
 <template>
     <div>
-        <div class="tab1-list" v-for="(t,i) in 5" :key="i">
-            <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
-            <div>
-                <div>士大夫撒旦法撒旦</div>
+        <router-link :to="{name:'buy'}">
+            <div class="tab1-list" v-for="(t,i) in 5" :key="i">
+                <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
                 <div>
-                    <div>¥100</div>
-                    <div class="tab2-but">购买</div>
+                    <div>士大夫撒旦法撒旦</div>
+                    <div>
+                        <div>¥100</div>
+                        <div class="tab2-but">购买</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </router-link>
     </div>
 </template>
 <script>
@@ -32,6 +34,7 @@ export default {
             border-radius: 2px;
             margin-right: 10px;
             border: 1px solid #f00;
+            object-fit: cover;
         }
         >div{
             flex-grow: 1;
