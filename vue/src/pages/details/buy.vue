@@ -3,7 +3,7 @@
         <div class="buy-swipe">
             <van-swipe  :autoplay="3000" indicator-color="#FF4339">
                 <van-swipe-item v-for="(t,i) in 3" :key="i">
-                    <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="商品">
+                    <img @click="lookEvent" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="商品">
                 </van-swipe-item>
             </van-swipe>
         </div>
@@ -11,7 +11,7 @@
             <div class="buy-title">第三方了第三方第三方了第三方第三方了第三方第三方了第三方第三方了第三方</div>
             <div class="buy-money">￥1000</div>
             <div class="buy-but">
-                <div>返回首页</div>
+                <router-link :to="{name:'index'}"><div>返回首页</div></router-link>
                 <div 
                     v-clipboard:copy="copyText"     
                     v-clipboard:success="onCopy"
@@ -28,21 +28,23 @@
                 3.购买商品
             </div>
 
-            <div class="index-user">
-                <div class="index-user-name">
-                    <div class="index-name">
-                        <div>阿斯顿福建 
-                            <div>
-                                <div></div>
-                                多少积分
+            <router-link :to="{name:'my'}">
+                <div class="index-user">
+                    <div class="index-user-name">
+                        <div class="index-name">
+                            <div>阿斯顿福建 
+                                <div>
+                                    <div></div>
+                                    多少积分
+                                </div>
                             </div>
+                            <div>阿斯顿发动机 第三方</div>
                         </div>
-                        <div>阿斯顿发动机 第三方</div>
+                        <img class="index-avatar" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
                     </div>
-                    <img class="index-avatar" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
+                    <div class="buy-lx"><div>联系人</div></div>
                 </div>
-                <div class="buy-lx"><div>联系人</div></div>
-            </div>
+            </router-link>
         </div>
 
         <div class="buy-empty"></div>
@@ -56,6 +58,8 @@
     </div>
 </template>
 <script>
+import { Toast } from 'vant';
+import { ImagePreview } from 'vant';
 export default {
     data(){
         return{
@@ -63,11 +67,30 @@ export default {
         }
     },
     methods:{
-        onCopy(){},
-        onError(){},
+        onCopy(){
+            Toast("复制成功")
+        },
+        onError(){Toast("复制失败")},
+        lookEvent(){
+            ImagePreview({
+                images: [
+                    'https://img.yzcdn.cn/vant/apple-1.jpg',
+                    'https://img.yzcdn.cn/vant/apple-2.jpg',
+                ],
+                startPosition: 1,
+                onClose() {
+                    // do something
+                },
+            });
+        }
     }
 }
 </script>
+<style>
+    .van-toast__text{
+        color: #fff !important;
+    }
+</style>
 <style lang="scss" scoped>
     .buy-swipe .van-swipe-item {
         color: #fff;

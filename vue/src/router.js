@@ -23,10 +23,11 @@ Vue.use(Router)
 // })
 
 const router=new Router({
+  // mode: "history",
   routes: [
           {
             path:"/",
-            redirect:"my"
+            redirect:"index"
           },
           {
             path:'/index',
@@ -91,9 +92,12 @@ const router=new Router({
 //         next('route') //跳转指定路由
 //         next('error') //跳转错误路由
   router.beforeEach((to,from,next)=>{
-    if (to.meta.title) {
-      document.title = to.meta.title;
-    }
+    try{
+      //设置标题
+      if (to.meta.title) {
+        document.title = to.meta.title;
+      }
+    }catch(err){}
     next()
     // console.log(sessionStorage["token"])
     // let sessionToken=JSON.parse(sessionStorage.getItem("store"))||'',storeToken=store.getters.getToken;

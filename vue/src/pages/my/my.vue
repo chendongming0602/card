@@ -12,27 +12,27 @@
                     </div>
                     <div>阿斯顿发动机 第三方</div>
                 </div>
-                <img class="index-avatar" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
+                <img @click="lookEvent" class="index-avatar" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
             </div>
         </div>
 
         <div class="my-lx">
             <div class="my-phone"
-                v-clipboard:copy="copyText"     
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
+                v-clipboard:copy="phone"     
+                v-clipboard:success="onPhone"
+                v-clipboard:error="errorPhone"
             >
                 <img src="https://minis-resources-1252149780.cos.ap-guangzhou.myqcloud.com/card/index/phone.png" alt="phone">
-                <div>联系方式：<span>18548484484</span></div>
+                <div>联系方式：<span>{{phone}}</span></div>
                 点击复制
             </div>
             <div class="my-phone my-wx"
-                v-clipboard:copy="copyText"     
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
+                v-clipboard:copy="wx"     
+                v-clipboard:success="onPhone"
+                v-clipboard:error="errorPhone"
             >
                 <img src="https://minis-resources-1252149780.cos.ap-guangzhou.myqcloud.com/card/index/wx.png" alt="wx">
-                <div>微信：<span>18548484484</span></div>
+                <div>微信：<span>{{wx}}</span></div>
                 点击复制
             </div>
         </div>
@@ -49,26 +49,46 @@
             </div>
         </div>
 
-        <div class="my-but">返回首页</div>
+        <router-link :to="{name:'index'}"><div class="my-but">返回首页</div></router-link>
     </div>
 </template>
 <script>
+import { Toast } from 'vant';
+import { ImagePreview } from 'vant';
 export default {
     data(){
         return{
-            copyText:"1dsaf "
+            phone:100010010,
+            wx:"sdf151fd"
         }
     },
     methods: {
-        onCopy(){
-            alert('复制成功')
+        onPhone(){
+            Toast("复制成功");
         },
-        onError(){
+        errorPhone(){
             alert('复制失败');
+        },
+        lookEvent(){
+            ImagePreview({
+                images: [
+                    'https://img.yzcdn.cn/vant/apple-1.jpg',
+                    'https://img.yzcdn.cn/vant/apple-2.jpg',
+                ],
+                startPosition: 1,
+                onClose() {
+                    // do something
+                },
+            });
         }
     }
 }
 </script>
+<style>
+    .van-toast__text{
+        color: #fff !important;
+    }
+</style>
 <style lang="scss" scoped>
     .my-box{
         padding: .18rem;

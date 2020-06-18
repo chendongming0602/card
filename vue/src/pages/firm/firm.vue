@@ -11,7 +11,7 @@
             <van-swipe class="swipe-box"  indicator-color="white" @change="swipeChange" :loop="false">
                     <van-swipe-item v-for="(t,i) in 5" :key="i">
                         <div :class="swipeIndex===i?'ii':''" class="swipe-items">
-                            <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="">
+                            <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="图" @click="lookEvent">
                         </div>
                     </van-swipe-item>
             </van-swipe>
@@ -28,11 +28,12 @@
             </div>
         </div>
 
-        <div class="my-but">返回首页</div>
+        <router-link :to="{name:'index'}"><div class="my-but">返回首页</div></router-link>
     </div>
     
 </template>
 <script>
+import { ImagePreview } from 'vant';
 export default {
     data(){
         return{
@@ -43,6 +44,18 @@ export default {
         swipeChange(e){
             console.log(e)
             this.swipeIndex=e
+        },
+        lookEvent(){
+            ImagePreview({
+                images: [
+                    'https://img.yzcdn.cn/vant/apple-1.jpg',
+                    'https://img.yzcdn.cn/vant/apple-2.jpg',
+                ],
+                startPosition: 1,
+                onClose() {
+                    // do something
+                },
+            });
         }
     },
     created(){

@@ -4,13 +4,6 @@ import router from './router'
 import store from './store'//引入store(vuex)
 import "./utils/axios.js"//引入axios
 // import bus from './utils/bus';
-// import ElementUI from 'element-ui';
-// import 'element-ui/lib/theme-chalk/index.css';
-//import MintUI from 'mint-ui'//1.引入mint-UI所有的组件：完整引入
-//import'mint-ui/lib/style.css'//2.单独引入mint-UI样式文件
-//Vue.prototype.bus=bus;//项目小-使用公用js（兄弟传值）
-//Vue.use(MintUI)//3.将mint-ul组件注册vue实例中
-// Vue.use(ElementUI)//注册element-ui
 //rem转px
 import "@/utils/flex";
 //有赞
@@ -18,8 +11,13 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 //复制文本插件
 import VueClipboard from 'vue-clipboard2';
+//上拉加载/下拉刷新
+import VueScroller from 'vue-scroller';
 
-Vue.use(VueClipboard)
+
+Vue.use(VueScroller);
+Vue.use(VueClipboard);
+
 
 Vue.use(Vant);
 // import jq from './assets/jquery-1.11.3.js'
@@ -48,15 +46,15 @@ new Vue({
   render: h => h(App),
   created(){
     // 从sessionStorage中取值
-  if (sessionStorage.getItem('store')) {
-      store.replaceState(Object.assign({}, store.state, JSON.parse(sessionStorage.getItem('store'))));
-      sessionStorage.removeItem('store');
-    }
+  // if (sessionStorage.getItem('store')) {
+  //     store.replaceState(Object.assign({}, store.state, JSON.parse(sessionStorage.getItem('store'))));
+  //     sessionStorage.removeItem('store');
+  //   }
     
-    // 监听页面刷新，将数据全部保存到sessionStorage中
-    window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem('store', JSON.stringify(store.state));
-    });
+  //   // 监听页面刷新，将数据全部保存到sessionStorage中
+  //   window.addEventListener('beforeunload', () => {
+  //     sessionStorage.setItem('store', JSON.stringify(store.state));
+  //   });
   
   }
 }).$mount('#app')

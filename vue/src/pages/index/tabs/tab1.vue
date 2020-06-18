@@ -1,38 +1,57 @@
 <template>
     <div class="tab1-boxs">
-        <div class="scroll" ref="scroll">
-            <router-link :to="{name:'press'}">
-                <div class="tab1-list" v-for="(t,i) in list" :key="i">
-                    <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
-                    <div>
-                        <div>士大夫撒旦法撒旦</div>
-                        <div>水电费拉的</div>
+        <Scroll v-on:below="below" v-on:up="up" :isUp="isUp" :isAll="false">
+            <div class="scroll" >
+                <router-link :to="{name:'press'}">
+                    <div class="tab1-list" v-for="(t,i) in list" :key="i">
+                        <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
+                        <div>
+                            <div>士大夫撒旦法撒旦</div>
+                            <div>水电费拉的</div>
+                        </div>
                     </div>
-                </div>
-            </router-link>
-        </div>
-        <Scroll></Scroll>
+                </router-link>
+            </div>
+        </Scroll>
     </div>
 </template>
 <script>
-import Scroll from "@/components/scroll/scroll.vue"
+import Scroll from "@/components/scroll/scroll.vue";
 export default {
     data(){
         return{
             list:[],
+            isUp:true
         }
     },
     methods:{
-       handleScroll(){
-           console.log(this.$refs.scroll.getBoundingClientRect())
-       console.log( window.innerHeight - this.$refs.scroll.getBoundingClientRect().y -this.$refs.scroll.getBoundingClientRect().height)
-       }
+        //下拉刷新
+        below(e){
+            let {stop}=e;
+            setTimeout(()=>{
+                stop();
+                console.log("下拉刷新了")
+            },1000)
+           
+        },
+        //上拉加载
+        up(e){
+            let {stop}=e;
+            if(this.list.length>=20) this.isUp=false
+            setTimeout(()=>{
+                for(let i=0;i<=5;i++) this.list.push(i)
+               stop();
+               console.log("加载")
+            },1000)
+            
+        }
+      
     },
     created(){
-        this.list.length=10
+        this.list.length=10;
     },
     mounted(){
-        window.addEventListener('scroll', this.handleScroll) //最后的参数为事件名称
+       
     },
     components:{
         Scroll
@@ -43,6 +62,7 @@ export default {
 <style lang="scss" scoped>
     .tab1-boxs{
         position: relative;
+        height: 4rem;
     }
     .tab1-list{
         display: flex;
@@ -55,7 +75,7 @@ export default {
             min-height: .77rem;
             border-radius: 2px;
             margin-right: 10px;
-            border: 1px solid #f00;
+            // border: 1px solid #f00;
             object-fit: cover;
         }
         >div{

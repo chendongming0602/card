@@ -42,10 +42,11 @@
                 <div class="index-scroll" @scroll.passive="getScroll($event)">
                    <div  v-for="(t,i) in 3" :key="i" class="index-scroll-item">
                         <img  src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="img" @click="lookEvent">
-                        <video v-if="false">
+                        <video controls preload v-if="false">
                             <source src="../../assets/imgs/mp4.mp4" type="video/mp4">
                         </video>
                    </div>
+                   <!-- <div class="index-more">加载更多</div> -->
                 </div>
             </div>
             <div class="index-gs-in">阿萨德佛那都放假哦阿萨德积分</div>
@@ -80,6 +81,8 @@ import Tab3 from "./tabs/tab3";
 import Tab4 from "./tabs/tab4";
 import Tab5 from "./tabs/tab5";
 import { ImagePreview } from 'vant';
+import wx from 'weixin-js-sdk';
+import {config} from "@/utils/config";
 export default {
     data(){
         return{
@@ -97,7 +100,7 @@ export default {
                 false,
                 false,
                 false,
-            ]
+            ],
         }
     },
     methods:{
@@ -121,16 +124,39 @@ export default {
                     // do something
                 },
             });
-        }
+        },
+        isH5(){
+            let ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                //微信浏览器
+                return true;
+            } else {
+                //其他浏览器
+                return false;
+            }
+        },
+        login(){
+            if(!this.isH5()) return;
+            window.location.href = `${config.loginUrl}?appid=${config.appid}&redirect_uri=${config.redirect_uri}&response_type=code&scope=${config.scope}&state=STATE#wechat_redirect`;
+        },
+        //url获取参数
+        urlEvent(){
+            let url="http://127.0.0.1:8080/#/index?ids=1&name=2",obj={};
+            if(url.indexOf("?")===-1) return {}
+            url=url.slice(url.indexOf("?")+1).split("&");
+            url.map(t=>{
+                obj[t.split("=")[0]]=t.split("=")[1]
+            });
+            return obj;
+        },
     },
     created(){
         console.log("我是首页")
         this.tabShow[this.tabIndex]=true;
+        // this.login();
     },
     mounted(){
-        //  var header = this.$refs.head;
-        //  console.log(header)
-        //  var origOffsetY = header.offsetTop; function onScroll(e) { window.scrollY >= origOffsetY ? header.classList.add('sticky') : header.classList.remove('sticky'); } document.addEventListener('scroll', onScroll);
+        
     },
     components:{
         Tab1,
@@ -276,16 +302,26 @@ export default {
                     height: .9rem;
                     width: 1.45rem;
                     margin-left: .1rem;
-                    border: 1px solid #f00;
+                    // border: 1px solid #f00;
                     border-radius: 3px;
                     img,video{
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
+                        border-radius:3px;
                     }
                 }
                 .index-scroll-item:nth-child(1){
                     margin-left: 0;
+                }
+                .index-more{
+                    padding:.2rem 6px;
+                    background: #ddd;
+                    text-align: center;
+                    font-size: .12rem;
+                    margin-left: 10px;
+                    color: #666;
+                    border-radius: 3px;
                 }
             }
         }

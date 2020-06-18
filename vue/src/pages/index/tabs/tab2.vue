@@ -1,27 +1,59 @@
 <template>
-    <div>
-        <router-link :to="{name:'buy'}">
-            <div class="tab1-list" v-for="(t,i) in 5" :key="i">
-                <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
-                <div>
-                    <div>士大夫撒旦法撒旦</div>
+    <div class="tab2-box">
+        <Scroll v-on:below="below" v-on:up="up" :isUp="isUp" :isAll="false">
+            <router-link :to="{name:'buy'}">
+                <div class="tab1-list" v-for="(t,i) in 5" :key="i">
+                    <img src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="行业">
                     <div>
-                        <div>¥100</div>
-                        <div class="tab2-but">购买</div>
+                        <div>士大夫撒旦法撒旦</div>
+                        <div>
+                            <div>¥100</div>
+                            <div class="tab2-but">购买</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </router-link>
+            </router-link>
+        </Scroll>
     </div>
 </template>
 <script>
+import Scroll from "@/components/scroll/scroll.vue";
 export default {
     data(){
-        return{}
+        return{
+            isUp:true
+        }
+    },
+    methods:{
+        below(e){
+            let {stop}=e;
+            setTimeout(()=>{
+                stop();
+                console.log("下拉刷新了")
+            },1000)
+            
+        },
+        //上拉加载
+        up(e){
+            let {stop}=e;
+            // if(全部加载完成) this.isUp=false;
+            setTimeout(()=>{
+                stop();
+                console.log("加载")
+            },1000)
+            
+        }
+    },
+    components:{
+        Scroll
     }
 }
 </script>
 <style lang="scss" scoped>
+    .tab2-box{
+        position: relative;
+        height: 4rem;
+    }
     .tab1-list{
         display: flex;
         justify-content: space-between;
@@ -33,7 +65,7 @@ export default {
             min-height: .77rem;
             border-radius: 2px;
             margin-right: 10px;
-            border: 1px solid #f00;
+            // border: 1px solid #f00;
             object-fit: cover;
         }
         >div{

@@ -1,20 +1,22 @@
 <template>
     <div class="press-box">
-        <div class="index-user">
-            <div class="index-user-name">
-                <div class="index-name">
-                    <div>阿斯顿福建 
-                        <div>
-                            <div></div>
-                            多少积分
+        <router-link :to="{name:'my'}">
+            <div class="index-user">
+                <div class="index-user-name">
+                    <div class="index-name">
+                        <div>阿斯顿福建 
+                            <div>
+                                <div></div>
+                                多少积分
+                            </div>
                         </div>
+                        <div>阿斯顿发动机 第三方</div>
                     </div>
-                    <div>阿斯顿发动机 第三方</div>
+                    <img class="index-avatar" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
                 </div>
-                <img class="index-avatar" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
+                <div class="buy-lx"><div>联系人</div></div>
             </div>
-            <div class="buy-lx"><div>联系人</div></div>
-        </div>
+        </router-link>
         <div class="press-title">宝宝总被蚊子叮？防蚊、止痒的正确方法 个高高大大大大…</div>
         <div class="press-gf">
             <img class="" src="https://lovers-1300783623.cos.ap-shanghai.myqcloud.com/index/lovers-06294371091263671.jpg" alt="头像">
